@@ -7,13 +7,14 @@ const inputRef = document.querySelector('.feedback-form input');
 const textareaRef = document.querySelector('.feedback-form textarea');
 
 
-
-let formData = {};
+loadForm();
+let formData;
 
 formRef.addEventListener('input', throttle(onFormInput, 500));
 formRef.addEventListener('submit', onFormSubmit);
 
 function onFormInput(e) {
+  formData = JSON.parse(localStorage.getItem(FORM__KEY)) || {};
   formData[e.target.name] = e.target.value;
   localStorage.setItem(FORM__KEY, JSON.stringify(formData));
 }
@@ -42,4 +43,3 @@ function loadForm() {
     textareaRef.value = data.message || '';
   }
 }
-loadForm();
